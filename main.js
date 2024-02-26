@@ -51,22 +51,44 @@ setInterval(function(){
 
 const galleryImages = [
     {
-        src: "./assets/gallery/image1.png",
+        src: "./assets/gallery/image1.jpg",
         alt: "Thumbnail Image 1"
     },
     {
-        src: "./assets/gallery/image2.png",
+        src: "./assets/gallery/image2.jpg",
         alt: "Thumbnail Image 2"
     },
     {
-        src: "./assets/gallery/image3.png",
+        src: "./assets/gallery/image3.jpg",
         alt: "Thumbnail Image 3"
     }
 ];
 
 let mainImage = document.querySelector("#gallery > img");
+let thumbnails = document.querySelector("#gallery .thumbnails");
 
-galleryImages.forEach(function(img, i){
-    
+mainImage.src = galleryImages[0].src;
+mainImage.alt = galleryImages[0].alt;
+
+galleryImages.forEach(function(img, index){
+    let t = document.createElement("img");
+    t.src = img.src;
+    t.alt = img.alt;   
+    t.dataset.arrayIndex = index;
+    t.dataset.selected = index === 0;
+
+    t.addEventListener("click", function(event){
+        let selectedIndex = event.target.dataset.arrayIndex;
+        let selectedImage = galleryImages[selectedIndex];
+        mainImage.src = selectedImage.src;
+        mainImage.alt = selectedImage.alt;
+
+        thumbnails.querySelectorAll("img").forEach(function(image){
+            image.dataset.selected = false;
+        });
+        event.target.dataset.selected = true;
+    });
+
+    thumbnails.appendChild(t);
 });
 
