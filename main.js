@@ -151,13 +151,9 @@ function galleryHandler(){
 
 function productsHandler(){
     
-    let freeProducts = products.filter(function(p){
-        return !p.price || p.price <= 0;
-    });
+    let freeProducts = products.filter(p => !p.price || p.price <= 0);
 
-    let paidProducts = products.filter(function(p){
-        return p.price > 0;
-    });
+    let paidProducts = products.filter(p => p.price > 0);
 
     populateProducts(products);
 
@@ -226,9 +222,20 @@ function populateProducts(productList){
 
 }
 
+function footerHandler(){
+
+    let year = new Date().getFullYear();
+
+    document.querySelector("footer").textContent = `© ${year} - All rights reserved`;
+}
+
+navigator.geolocation.getCurrentPosition( position => {
+    console.log(position); 
+});
+
 menuHandler();
 greetingHandler();
 clockHandler();
 galleryHandler();
 productsHandler();
-
+footerHandler();
